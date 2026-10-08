@@ -1,0 +1,68 @@
+{
+  "tournament": {
+    "name": "DFS LEAGUE S2",
+    "tagline": "MORE THAN A GAME",
+    "game": "FREE FIRE",
+    "year": "2026",
+    "server": "LATAM",
+    "platform": "Solo móvil",
+    "teams": 180,
+    "groups": 15,
+    "prizePool": "400 USD",
+    "status": "Inscripciones abiertas",
+    "intro": "Ha llegado el momento. DFS League Season 2 da inicio a una nueva batalla donde solo los equipos más disciplinados, estratégicos y agresivos lograrán marcar la diferencia. Cada partida cuenta. Cada decisión importa. Y solo los mejores llegarán hasta el final.",
+    "heroImage": "assets/poster.webp"
+  },
+  "links": {
+    "instagram": "https://www.instagram.com/dfs.league/",
+    "instagramHandle": "@dfs.league",
+    "infoGroup": "",
+    "infoGroupLabel": "Grupo de información (WhatsApp)",
+    "discord": "",
+    "registration": ""
+  },
+  "prizes": [
+    { "place": "1° Lugar", "amount": "200 USD" },
+    { "place": "2° Lugar", "amount": "120 USD" },
+    { "place": "3° Lugar", "amount": "80 USD" }
+  ],
+  "schedule": [
+    { "date": "2026-10-15", "time": "20:00", "title": "Fase de grupos · Jornada 1", "detail": "Grupos A – E", "status": "proximo" },
+    { "date": "2026-10-16", "time": "20:00", "title": "Fase de grupos · Jornada 1", "detail": "Grupos F – J", "status": "proximo" },
+    { "date": "2026-10-17", "time": "20:00", "title": "Fase de grupos · Jornada 1", "detail": "Grupos K – O", "status": "proximo" },
+    { "date": "2026-10-24", "time": "20:00", "title": "Semifinales", "detail": "Clasificados de grupos", "status": "proximo" },
+    { "date": "2026-10-31", "time": "20:00", "title": "Gran Final", "detail": "12 equipos · 6 partidas", "status": "proximo" }
+  ],
+  "results": [
+    {
+      "title": "Grupo A",
+      "phase": "Fase de grupos",
+      "updated": "",
+      "rows": [
+        { "team": "Equipo 1", "booyah": 0, "kills": 0, "placement": 0 },
+        { "team": "Equipo 2", "booyah": 0, "kills": 0, "placement": 0 },
+        { "team": "Equipo 3", "booyah": 0, "kills": 0, "placement": 0 }
+      ]
+    }
+  ],
+  "sponsors": [
+    { "name": "Sponsor 1", "logo": "", "url": "" },
+    { "name": "Sponsor 2", "logo": "", "url": "" },
+    { "name": "Sponsor 3", "logo": "", "url": "" },
+    { "name": "Sponsor 4", "logo": "", "url": "" },
+    { "name": "Sponsor 5", "logo": "", "url": "" },
+    { "name": "Sponsor 6", "logo": "", "url": "" },
+    { "name": "Sponsor 7", "logo": "", "url": "" },
+    { "name": "Sponsor 8", "logo": "", "url": "" },
+    { "name": "Sponsor 9", "logo": "", "url": "" },
+    { "name": "Sponsor 10", "logo": "", "url": "" },
+    { "name": "Sponsor 11", "logo": "", "url": "" },
+    { "name": "Sponsor 12", "logo": "", "url": "" },
+    { "name": "Sponsor 13", "logo": "", "url": "" },
+    { "name": "Sponsor 14", "logo": "", "url": "" },
+    { "name": "Sponsor 15", "logo": "", "url": "" },
+    { "name": "Sponsor 16", "logo": "", "url": "" },
+    { "name": "Sponsor 17", "logo": "", "url": "" },
+    { "name": "Sponsor 18", "logo": "", "url": "" }
+  ]
+}

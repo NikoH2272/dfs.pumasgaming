@@ -1,1 +1,128 @@
-hola
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DFS LEAGUE S2 · Free Fire</title>
+  <meta name="description" content="DFS League Season 2 — Torneo de Free Fire LATAM, solo móvil. 180 equipos, 15 grupos, prize pool de 400 USD. More than a game.">
+  <meta property="og:title" content="DFS LEAGUE S2 · Prize Pool 400 USD">
+  <meta property="og:description" content="180 equipos · 15 grupos · Free Fire LATAM · Solo móvil">
+  <meta property="og:image" content="assets/poster.webp">
+  <meta name="theme-color" content="#04090b">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <a class="brand" href="#inicio"><span id="logo"></span><span>DFS <b>LEAGUE</b> S2</span></a>
+      <button class="nav-toggle" aria-label="Menú" aria-expanded="false">☰</button>
+      <nav class="nav">
+        <a href="#info">Info</a>
+        <a href="#calendario">Calendario</a>
+        <a href="#resultados">Resultados</a>
+        <a href="#comunidad">Comunidad</a>
+        <a href="#sponsors">Sponsors</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container">
+        <div>
+          <div class="hero-tags"><span><b data-k="game">FREE FIRE</b></span><span>DFS <i>|</i> <b data-k="year">2026</b></span></div>
+          <span class="kicker" data-k="status">Inscripciones abiertas</span>
+          <h1 class="title-silver" data-k="name">DFS LEAGUE S2</h1>
+          <div class="title-silver prize-label">PRIZE POOL</div>
+          <div class="title-teal prize" data-k="prizePool">400 USD</div>
+          <p class="lead">Una nueva batalla donde solo los equipos más disciplinados, estratégicos y agresivos lograrán marcar la diferencia.</p>
+          <div class="cta-row" id="hero-cta"></div>
+        </div>
+        <div class="hero-art">
+          <img id="hero-img" src="assets/poster.webp" alt="Póster oficial DFS League Season 2 con el trofeo y prize pool de 400 USD" width="689" height="865">
+          <span class="side-label">DFS LEAGUE SEASON 2</span>
+        </div>
+      </div>
+      <div class="container">
+        <div class="stats" id="stats"></div>
+      </div>
+    </section>
+
+    <section class="block" id="info">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">El torneo</span><h2>DFS LEAGUE S2 <em>abre sus puertas</em></h2></div>
+        </div>
+        <div class="info-grid">
+          <div class="panel corner info-text reveal">
+            <p id="intro"></p>
+            <p class="quote">🏆 Un solo objetivo: <b>demostrar quién tiene lo necesario para dominar el competitivo.</b></p>
+            <div class="chips" id="chips"></div>
+          </div>
+          <div class="panel prizes reveal">
+            <h3>Premiación</h3>
+            <div id="prizes"></div>
+            <div class="prize-total"><span class="eyebrow" style="margin:0">Prize pool</span><b class="title-teal" data-k="prizePool">400 USD</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="calendario">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Fechas</span><h2>Calendario</h2></div>
+        </div>
+        <div class="timeline" id="schedule"></div>
+      </div>
+    </section>
+
+    <section class="block" id="resultados">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Tabla de posiciones</span><h2>Resultados</h2></div>
+        </div>
+        <div class="tabs" id="result-tabs" role="tablist"></div>
+        <div class="panel corner" id="results"></div>
+      </div>
+    </section>
+
+    <section class="block" id="comunidad">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Mantente informado</span><h2>Comunidad</h2></div>
+        </div>
+        <div class="community" id="community"></div>
+      </div>
+    </section>
+
+    <section class="block" id="sponsors">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Gracias a</span><h2>Sponsors</h2></div>
+        </div>
+        <div class="panel sponsors" aria-roledescription="carrusel">
+          <div class="sp-track" id="sp-track"></div>
+          <div class="sp-dots" id="sp-dots"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="hashtags">#GO<b>DFS</b> &nbsp; #SOMOS<b>DFS</b>LEAGUE</div>
+      <div id="footer-ig"></div>
+      <div>© <span data-k="year">2026</span> DFS Esport · <span data-k="tagline">More than a game</span></div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="assets/config.js"></script>
+  <script src="assets/common.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
