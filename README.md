@@ -12,21 +12,34 @@ Resultados, calendario, sponsors, ajustes y usuarios viven en Supabase. Si `asse
 
 Configuración (una sola vez):
 
-1. Supabase → **SQL Editor** → pega y ejecuta [`supabase/schema.sql`](supabase/schema.sql).
-2. Supabase → **Project Settings → API Keys** → copia la clave **anon / publishable** en `assets/config.js`.
+1. Supabase → **SQL Editor** → pega y ejecuta [`supabase/schema.sql`](supabase/schema.sql) (se puede repetir sin perder datos).
+2. Crea tu usuario admin ejecutando en el SQL Editor (cambia usuario y clave):
+   `select public.staff_set_admin('tu_usuario', 'tu_clave');`
+   La misma línea sirve para recuperar la clave si la olvidas.
+3. Supabase → **Project Settings → API Keys** → copia la clave **anon / publishable** en `assets/config.js`.
    ⚠️ Nunca uses la `service_role` en la web: da control total de la base de datos.
-3. Abre `/admin.html` → **Crear cuenta** → confirma el correo.
-4. En el SQL Editor conviértete en admin:
-   `update public.profiles set role = 'admin' where email = 'tu-correo';`
+
+Los usuarios del staff viven en la tabla `staff_users` (usuario + clave cifrada con bcrypt, sin correo).
+La web solo lee; todo lo que escribe el admin pasa por funciones `staff_*` que validan la sesión.
 
 ## Panel admin
 
-- Inicia sesión en `/admin.html`. Las cuentas nuevas quedan **pendiente**; un admin les da rol en **Usuarios**
-  (**editor**: edita contenido · **admin**: también gestiona usuarios).
+- Inicia sesión en `/admin.html` con usuario y clave. En **Usuarios** el admin crea cuentas, cambia roles,
+  restablece claves y elimina usuarios (**editor**: edita contenido · **admin**: también gestiona usuarios).
+  Cada quien cambia su clave con **Cambiar clave**. 5 intentos fallidos bloquean el usuario 10 minutos.
 - Edita general, Instagram y grupo, premios, calendario, resultados y los 18 sponsors y pulsa **Guardar cambios**:
-  se ve en la web al instante. Los logos y el póster se suben al bucket `media`.
-- En Resultados, “Pegar lista” acepta una línea por equipo: `Equipo, Booyah, Kills, Pts posición`
-  (también sirve copiar columnas desde Excel/Sheets).
+  se ve en la web al instante. Los logos y el póster se comprimen y se guardan en la base de datos.
+- **Estado del torneo**: Inscripciones abiertas / Cerrado / En juego / Finalizado (etiqueta de la portada).
+- **Cronograma**: ya trae las 27 fechas oficiales (octavos a final), ocultas. Actívalas con el interruptor
+  o con “Activar todas” por fase. La hora se carga en hora de México y la web muestra MX, CO, RD y AR.
+  Con **“Cargar equipos”** en cada fase pegas la plantilla (`GRUPO A` / `1. OLIS` …) y cada fecha muestra cuántos
+  equipos tiene (`12/12`). Los equipos se guardan una sola vez y se ven en la web en el cronograma
+  (“Ver equipos”, buscador “Busca tu equipo”) y en Resultados como “Equipos confirmados” hasta que se carguen puntos.
+- **Resultados**: grupos de 12 por fase. Total = Kills + P.P − Sanciones. “Clasifican (top N)” marca quiénes pasan,
+  y “Tabla general de la fase” suma todos los grupos de esa fase automáticamente.
+- **Plantilla de equipos**: en cada grupo, “Pegar equipos” acepta la lista numerada (`1. OLIS`, `2. B17 E-SPORT`, …)
+  y solo cambia los nombres. También acepta `Equipo, Kills, P.P, Sanciones` (sirve copiar desde Excel/Sheets).
+  “Carga masiva” recibe varios grupos a la vez, cada bloque encabezado por `GRUPO A`, `GRUPO B`, …
 
 ## Probar en local
 

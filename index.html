@@ -7,7 +7,8 @@
   <meta name="description" content="DFS League Season 2 — Torneo de Free Fire LATAM, solo móvil. 180 equipos, 15 grupos, prize pool de 400 USD. More than a game.">
   <meta property="og:title" content="DFS LEAGUE S2 · Prize Pool 400 USD">
   <meta property="og:description" content="180 equipos · 15 grupos · Free Fire LATAM · Solo móvil">
-  <meta property="og:image" content="assets/poster.webp">
+  <meta property="og:image" content="assets/hero.webp">
+  <link rel="icon" href="assets/favicon.png">
   <meta name="theme-color" content="#04090b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +18,7 @@
 <body>
   <header class="topbar">
     <div class="container">
-      <a class="brand" href="#inicio"><span id="logo"></span><span>DFS <b>LEAGUE</b> S2</span></a>
+      <a class="brand" href="#inicio"><img src="assets/logo.webp" alt="" width="30" height="37"><span>DFS <b>LEAGUE</b> S2</span></a>
       <button class="nav-toggle" aria-label="Menú" aria-expanded="false">☰</button>
       <nav class="nav">
         <a href="#info">Info</a>
@@ -34,7 +35,7 @@
       <div class="container">
         <div>
           <div class="hero-tags"><span><b data-k="game">FREE FIRE</b></span><span>DFS <i>|</i> <b data-k="year">2026</b></span></div>
-          <span class="kicker" data-k="status">Inscripciones abiertas</span>
+          <span class="kicker" id="state-badge">Inscripciones abiertas</span>
           <h1 class="title-silver" data-k="name">DFS LEAGUE S2</h1>
           <div class="title-silver prize-label">PRIZE POOL</div>
           <div class="title-teal prize" data-k="prizePool">400 USD</div>
@@ -42,7 +43,7 @@
           <div class="cta-row" id="hero-cta"></div>
         </div>
         <div class="hero-art">
-          <img id="hero-img" src="assets/poster.webp" alt="Póster oficial DFS League Season 2 con el trofeo y prize pool de 400 USD" width="689" height="865">
+          <img id="hero-img" src="assets/hero.webp" alt="Jugadores de DFS Esport con el trofeo de DFS League S2" width="1071" height="1143">
           <span class="side-label">DFS LEAGUE SEASON 2</span>
         </div>
       </div>
@@ -76,7 +77,16 @@
         <div class="section-head reveal">
           <div><span class="eyebrow">Fechas</span><h2>Calendario</h2></div>
         </div>
-        <div class="timeline" id="schedule"></div>
+        <div class="sched-tools">
+          <div class="tabs" id="sched-phases" style="margin:0"></div>
+          <label class="team-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input type="search" id="team-search" placeholder="Busca tu equipo…" aria-label="Buscar equipo en el cronograma" autocomplete="off">
+          </label>
+        </div>
+        <div id="schedule"></div>
+        <p class="notice" id="notice" hidden></p>
+        <a class="btn ghost sm" href="assets/cronograma.webp" target="_blank" rel="noopener" style="margin-top:14px">Ver póster del cronograma</a>
       </div>
     </section>
 
@@ -85,6 +95,7 @@
         <div class="section-head reveal">
           <div><span class="eyebrow">Tabla de posiciones</span><h2>Resultados</h2></div>
         </div>
+        <div class="tabs phase-tabs" id="phase-tabs"></div>
         <div class="tabs" id="result-tabs" role="tablist"></div>
         <div class="panel corner" id="results"></div>
       </div>
@@ -104,9 +115,8 @@
         <div class="section-head reveal">
           <div><span class="eyebrow">Gracias a</span><h2>Sponsors</h2></div>
         </div>
-        <div class="panel sponsors" aria-roledescription="carrusel">
+        <div class="panel sponsors" aria-label="Sponsors de DFS League S2">
           <div class="sp-track" id="sp-track"></div>
-          <div class="sp-dots" id="sp-dots"></div>
         </div>
       </div>
     </section>

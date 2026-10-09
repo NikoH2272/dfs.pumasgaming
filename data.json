@@ -9,9 +9,11 @@
     "teams": 180,
     "groups": 15,
     "prizePool": "400 USD",
-    "status": "Inscripciones abiertas",
     "intro": "Ha llegado el momento. DFS League Season 2 da inicio a una nueva batalla donde solo los equipos más disciplinados, estratégicos y agresivos lograrán marcar la diferencia. Cada partida cuenta. Cada decisión importa. Y solo los mejores llegarán hasta el final.",
-    "heroImage": "assets/poster.webp"
+    "heroImage": "assets/hero.webp",
+    "state": "abierto",
+    "teamsPerGroup": 12,
+    "notice": "Jugador FFWS no registrado desde octavos de final no tendrá derecho a jugar en demás fases. Debe ser jugador registrado en sala y con cuenta propia."
   },
   "links": {
     "instagram": "https://www.instagram.com/dfs.league/",
@@ -22,47 +24,626 @@
     "registration": ""
   },
   "prizes": [
-    { "place": "1° Lugar", "amount": "200 USD" },
-    { "place": "2° Lugar", "amount": "120 USD" },
-    { "place": "3° Lugar", "amount": "80 USD" }
+    {
+      "place": "1° Lugar",
+      "amount": "200 USD"
+    },
+    {
+      "place": "2° Lugar",
+      "amount": "120 USD"
+    },
+    {
+      "place": "3° Lugar",
+      "amount": "80 USD"
+    }
   ],
   "schedule": [
-    { "date": "2026-10-15", "time": "20:00", "title": "Fase de grupos · Jornada 1", "detail": "Grupos A – E", "status": "proximo" },
-    { "date": "2026-10-16", "time": "20:00", "title": "Fase de grupos · Jornada 1", "detail": "Grupos F – J", "status": "proximo" },
-    { "date": "2026-10-17", "time": "20:00", "title": "Fase de grupos · Jornada 1", "detail": "Grupos K – O", "status": "proximo" },
-    { "date": "2026-10-24", "time": "20:00", "title": "Semifinales", "detail": "Clasificados de grupos", "status": "proximo" },
-    { "date": "2026-10-31", "time": "20:00", "title": "Gran Final", "detail": "12 equipos · 6 partidas", "status": "proximo" }
+    {
+      "phase": "Octavos de final",
+      "group": "Grupo A",
+      "date": "2026-10-12",
+      "time": "18:00",
+      "rooms": 2,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 0
+    },
+    {
+      "phase": "Octavos de final",
+      "group": "Grupo B",
+      "date": "2026-10-12",
+      "time": "19:00",
+      "rooms": 2,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 1
+    },
+    {
+      "phase": "Octavos de final",
+      "group": "Grupo C",
+      "date": "2026-10-12",
+      "time": "20:00",
+      "rooms": 2,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 2
+    },
+    {
+      "phase": "Octavos de final",
+      "group": "Grupo D",
+      "date": "2026-10-13",
+      "time": "18:00",
+      "rooms": 2,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 3
+    },
+    {
+      "phase": "Octavos de final",
+      "group": "Grupo E",
+      "date": "2026-10-13",
+      "time": "19:00",
+      "rooms": 2,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 4
+    },
+    {
+      "phase": "Octavos de final",
+      "group": "Grupo F",
+      "date": "2026-10-13",
+      "time": "20:00",
+      "rooms": 2,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 5
+    },
+    {
+      "phase": "Octavos de final",
+      "group": "Grupo G",
+      "date": "2026-10-14",
+      "time": "18:00",
+      "rooms": 2,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 6
+    },
+    {
+      "phase": "Octavos de final",
+      "group": "Grupo H",
+      "date": "2026-10-14",
+      "time": "19:00",
+      "rooms": 2,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 7
+    },
+    {
+      "phase": "Octavos de final",
+      "group": "Grupo I",
+      "date": "2026-10-14",
+      "time": "20:00",
+      "rooms": 2,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 8
+    },
+    {
+      "phase": "Octavos de final",
+      "group": "Grupo J",
+      "date": "2026-10-15",
+      "time": "18:00",
+      "rooms": 2,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 9
+    },
+    {
+      "phase": "Octavos de final",
+      "group": "Grupo K",
+      "date": "2026-10-15",
+      "time": "19:00",
+      "rooms": 2,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 10
+    },
+    {
+      "phase": "Octavos de final",
+      "group": "Grupo L",
+      "date": "2026-10-15",
+      "time": "20:00",
+      "rooms": 2,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 11
+    },
+    {
+      "phase": "Octavos de final",
+      "group": "Grupo M",
+      "date": "2026-10-16",
+      "time": "18:00",
+      "rooms": 2,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 12
+    },
+    {
+      "phase": "Octavos de final",
+      "group": "Grupo N",
+      "date": "2026-10-16",
+      "time": "19:00",
+      "rooms": 2,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 13
+    },
+    {
+      "phase": "Octavos de final",
+      "group": "Grupo O",
+      "date": "2026-10-16",
+      "time": "20:00",
+      "rooms": 2,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 14
+    },
+    {
+      "phase": "Cuartos de final",
+      "group": "Grupo A",
+      "date": "2026-10-19",
+      "time": "20:00",
+      "rooms": 3,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 15
+    },
+    {
+      "phase": "Cuartos de final",
+      "group": "Grupo B",
+      "date": "2026-10-20",
+      "time": "18:00",
+      "rooms": 3,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 16
+    },
+    {
+      "phase": "Cuartos de final",
+      "group": "Grupo C",
+      "date": "2026-10-20",
+      "time": "20:00",
+      "rooms": 3,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 17
+    },
+    {
+      "phase": "Cuartos de final",
+      "group": "Grupo D",
+      "date": "2026-10-21",
+      "time": "18:00",
+      "rooms": 3,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 18
+    },
+    {
+      "phase": "Cuartos de final",
+      "group": "Grupo E",
+      "date": "2026-10-21",
+      "time": "20:00",
+      "rooms": 3,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 19
+    },
+    {
+      "phase": "Cuartos de final",
+      "group": "Grupo F",
+      "date": "2026-10-22",
+      "time": "18:00",
+      "rooms": 3,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 20
+    },
+    {
+      "phase": "Cuartos de final",
+      "group": "Grupo G",
+      "date": "2026-10-22",
+      "time": "20:00",
+      "rooms": 3,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 21
+    },
+    {
+      "phase": "Cuartos de final",
+      "group": "Grupo H",
+      "date": "2026-10-23",
+      "time": "20:00",
+      "rooms": 3,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 22
+    },
+    {
+      "phase": "Semifinal",
+      "group": "Grupo A",
+      "date": "2026-10-26",
+      "time": "20:00",
+      "rooms": 4,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 23
+    },
+    {
+      "phase": "Semifinal",
+      "group": "Grupo B",
+      "date": "2026-10-27",
+      "time": "20:00",
+      "rooms": 4,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 24
+    },
+    {
+      "phase": "Semifinal",
+      "group": "Grupo C",
+      "date": "2026-10-28",
+      "time": "20:00",
+      "rooms": 4,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 25
+    },
+    {
+      "phase": "Final",
+      "group": "Final",
+      "date": "2026-10-30",
+      "time": "20:00",
+      "rooms": 6,
+      "status": "proximo",
+      "visible": true,
+      "note": "",
+      "position": 26
+    }
   ],
   "results": [
     {
+      "phase": "Octavos de final",
       "title": "Grupo A",
-      "phase": "Fase de grupos",
+      "kind": "grupo",
+      "qualify": 0,
       "updated": "",
-      "rows": [
-        { "team": "Equipo 1", "booyah": 0, "kills": 0, "placement": 0 },
-        { "team": "Equipo 2", "booyah": 0, "kills": 0, "placement": 0 },
-        { "team": "Equipo 3", "booyah": 0, "kills": 0, "placement": 0 }
-      ]
+      "rows": []
+    },
+    {
+      "phase": "Octavos de final",
+      "title": "Grupo B",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Octavos de final",
+      "title": "Grupo C",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Octavos de final",
+      "title": "Grupo D",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Octavos de final",
+      "title": "Grupo E",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Octavos de final",
+      "title": "Grupo F",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Octavos de final",
+      "title": "Grupo G",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Octavos de final",
+      "title": "Grupo H",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Octavos de final",
+      "title": "Grupo I",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Octavos de final",
+      "title": "Grupo J",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Octavos de final",
+      "title": "Grupo K",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Octavos de final",
+      "title": "Grupo L",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Octavos de final",
+      "title": "Grupo M",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Octavos de final",
+      "title": "Grupo N",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Octavos de final",
+      "title": "Grupo O",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Cuartos de final",
+      "title": "Grupo A",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Cuartos de final",
+      "title": "Grupo B",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Cuartos de final",
+      "title": "Grupo C",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Cuartos de final",
+      "title": "Grupo D",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Cuartos de final",
+      "title": "Grupo E",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Cuartos de final",
+      "title": "Grupo F",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Cuartos de final",
+      "title": "Grupo G",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Cuartos de final",
+      "title": "Grupo H",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Semifinal",
+      "title": "Grupo A",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Semifinal",
+      "title": "Grupo B",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Semifinal",
+      "title": "Grupo C",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
+    },
+    {
+      "phase": "Final",
+      "title": "Final",
+      "kind": "grupo",
+      "qualify": 0,
+      "updated": "",
+      "rows": []
     }
   ],
   "sponsors": [
-    { "name": "Sponsor 1", "logo": "", "url": "" },
-    { "name": "Sponsor 2", "logo": "", "url": "" },
-    { "name": "Sponsor 3", "logo": "", "url": "" },
-    { "name": "Sponsor 4", "logo": "", "url": "" },
-    { "name": "Sponsor 5", "logo": "", "url": "" },
-    { "name": "Sponsor 6", "logo": "", "url": "" },
-    { "name": "Sponsor 7", "logo": "", "url": "" },
-    { "name": "Sponsor 8", "logo": "", "url": "" },
-    { "name": "Sponsor 9", "logo": "", "url": "" },
-    { "name": "Sponsor 10", "logo": "", "url": "" },
-    { "name": "Sponsor 11", "logo": "", "url": "" },
-    { "name": "Sponsor 12", "logo": "", "url": "" },
-    { "name": "Sponsor 13", "logo": "", "url": "" },
-    { "name": "Sponsor 14", "logo": "", "url": "" },
-    { "name": "Sponsor 15", "logo": "", "url": "" },
-    { "name": "Sponsor 16", "logo": "", "url": "" },
-    { "name": "Sponsor 17", "logo": "", "url": "" },
-    { "name": "Sponsor 18", "logo": "", "url": "" }
+    {
+      "name": "Shishigang Esport",
+      "logo": "assets/sponsors/1.webp",
+      "url": ""
+    },
+    {
+      "name": "Rushieo",
+      "logo": "assets/sponsors/2.webp",
+      "url": ""
+    },
+    {
+      "name": "Fallen Angels",
+      "logo": "assets/sponsors/3.webp",
+      "url": ""
+    },
+    {
+      "name": "Sameaj Gaming",
+      "logo": "assets/sponsors/4.webp",
+      "url": ""
+    },
+    {
+      "name": "Sponsor 5",
+      "logo": "assets/sponsors/5.webp",
+      "url": ""
+    },
+    {
+      "name": "CSUR",
+      "logo": "assets/sponsors/6.webp",
+      "url": ""
+    },
+    {
+      "name": "CSUR",
+      "logo": "assets/sponsors/7.webp",
+      "url": ""
+    },
+    {
+      "name": "HG Crew",
+      "logo": "assets/sponsors/8.webp",
+      "url": ""
+    },
+    {
+      "name": "Sponsor 9",
+      "logo": "assets/sponsors/9.webp",
+      "url": ""
+    },
+    {
+      "name": "SJA Esports",
+      "logo": "assets/sponsors/10.webp",
+      "url": ""
+    },
+    {
+      "name": "Sponsor 11",
+      "logo": "assets/sponsors/11.webp",
+      "url": ""
+    },
+    {
+      "name": "Sponsor 12",
+      "logo": "assets/sponsors/12.webp",
+      "url": ""
+    },
+    {
+      "name": "Sponsor 13",
+      "logo": "assets/sponsors/13.webp",
+      "url": ""
+    },
+    {
+      "name": "Sponsor 14",
+      "logo": "assets/sponsors/14.webp",
+      "url": ""
+    },
+    {
+      "name": "Sponsor 15",
+      "logo": "assets/sponsors/15.webp",
+      "url": ""
+    },
+    {
+      "name": "Trybal Esports",
+      "logo": "assets/sponsors/16.webp",
+      "url": ""
+    },
+    {
+      "name": "Kiss Esports",
+      "logo": "assets/sponsors/17.webp",
+      "url": ""
+    },
+    {
+      "name": "Anarchy",
+      "logo": "assets/sponsors/18.webp",
+      "url": ""
+    }
   ]
 }

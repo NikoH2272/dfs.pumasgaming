@@ -1,10 +1,5 @@
 // Shared helpers for the public site and the admin panel.
 const DFS = (() => {
-  const LOGO_SVG = `<svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
-    <path d="M14 8h40l-10 10H24l-6 6h28l10 10-22 22H10l10-10h20l6-6H18L8 30z" fill="url(#lg)" stroke="#19e3e3" stroke-width="1.5"/>
-    <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="64"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#b9c6c9"/><stop offset="1" stop-color="#5d6b6e"/></linearGradient></defs>
-  </svg>`;
-
   const ICONS = {
     instagram: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>`,
     whatsapp: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.6-4.6A9 9 0 1 1 8 19.6z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2z" fill="currentColor" stroke="none"/></svg>`,
@@ -33,16 +28,17 @@ const DFS = (() => {
         return null;
       }
     } catch (_) { /* sb_publishable_ keys are not JWTs */ }
-    return window.supabase.createClient(c.supabaseUrl, c.supabaseAnonKey);
+    return window.supabase.createClient(c.supabaseUrl, c.supabaseAnonKey, { auth: { persistSession: false } });
   })();
 
   const must = ({ data, error }) => { if (error) throw new Error(error.message); return data; };
 
   // Reads every table and assembles the same shape as data.json.
-  async function fetchFromSupabase() {
+  // The admin passes its own schedule query because hidden dates are only readable through staff_schedule.
+  async function fetchFromSupabase(scheduleQuery) {
     const [settings, schedule, groups, rows, sponsors] = await Promise.all([
       sb.from("settings").select("*").eq("id", 1).maybeSingle().then(must),
-      sb.from("schedule").select("*").order("date").order("time").then(must),
+      (scheduleQuery || sb.from("schedule").select("*").order("position")).then(must),
       sb.from("result_groups").select("*").order("position").then(must),
       sb.from("result_rows").select("*").order("position").then(must),
       sb.from("sponsors").select("*").order("position").then(must),
@@ -52,10 +48,14 @@ const DFS = (() => {
       tournament: settings?.tournament || {},
       links: settings?.links || {},
       prizes: settings?.prizes || [],
-      schedule: schedule.map((m) => ({ id: m.id, date: m.date || "", time: m.time || "", title: m.title, detail: m.detail, status: m.status })),
+      schedule: schedule.map((m) => ({
+        id: m.id, phase: m.phase, group: m.group_name, date: m.date || "", time: m.time || "",
+        rooms: m.rooms, status: m.status, visible: m.visible, note: m.note,
+      })),
       results: groups.map((g) => ({
-        id: g.id, title: g.title, phase: g.phase, updated: fmt(g.updated_at),
-        rows: rows.filter((r) => r.group_id === g.id).map((r) => ({ id: r.id, team: r.team, booyah: r.booyah, kills: r.kills, placement: r.placement })),
+        id: g.id, phase: g.phase, title: g.title, kind: g.kind, qualify: g.qualify, updated: fmt(g.updated_at),
+        rows: rows.filter((r) => r.group_id === g.id)
+          .map((r) => ({ id: r.id, team: r.team, kills: r.kills, placement: r.placement, penalty: r.penalty })),
       })),
       sponsors: sponsors.map((s) => ({ id: s.id, name: s.name, logo: s.logo_url, url: s.url })),
     };
@@ -68,9 +68,45 @@ const DFS = (() => {
     return res.json();
   }
 
-  const total = (r) => (Number(r.kills) || 0) + (Number(r.placement) || 0);
-  const sortRows = (rows) =>
-    [...rows].sort((a, b) => total(b) - total(a) || (b.booyah || 0) - (a.booyah || 0) || (b.kills || 0) - (a.kills || 0));
+  const PHASES = ["Octavos de final", "Cuartos de final", "Semifinal", "Final"];
+  const STATES = {
+    abierto: "Inscripciones abiertas",
+    cerrado: "Cerrado",
+    en_juego: "En juego",
+    finalizado: "Finalizado",
+  };
+  // Times are stored in Mexico time; the poster lists the same slot for these countries.
+  const COUNTRIES = [["mx", "México", 0], ["co", "Colombia", 1], ["do", "Rep. Dominicana", 2], ["ar", "Argentina", 3]];
+  const localTimes = (time) => {
+    const [h, m] = (time || "").split(":").map(Number);
+    if (isNaN(h)) return [];
+    return COUNTRIES.map(([code, name, off]) => {
+      const hh = (h + off) % 24;
+      return { code, name, label: `${hh % 12 || 12}:${String(m || 0).padStart(2, "0")} ${hh < 12 ? "AM" : "PM"}` };
+    });
+  };
 
-  return { sb, must, fetchFromSupabase, LOGO_SVG, ICONS, esc, safeUrl, safeImg, loadData, total, sortRows };
+  // Total = kills + placement points - penalties.
+  const total = (r) => (Number(r.kills) || 0) + (Number(r.placement) || 0) - (Number(r.penalty) || 0);
+  const sortRows = (rows) =>
+    [...rows].sort((a, b) => total(b) - total(a) || (b.placement || 0) - (a.placement || 0) || (b.kills || 0) - (a.kills || 0));
+  const hasTeam = (r) => (r.team || "").trim() !== "";
+
+  // A "general" table sums every team across the group tables of the same phase.
+  const generalRows = (results, phase) => {
+    const map = new Map();
+    results.filter((g) => g.phase === phase && g.kind !== "general").forEach((g) => {
+      g.rows.filter(hasTeam).forEach((r) => {
+        const key = r.team.trim().toLowerCase();
+        const acc = map.get(key) || { team: r.team.trim(), group: g.title, kills: 0, placement: 0, penalty: 0 };
+        acc.kills += Number(r.kills) || 0;
+        acc.placement += Number(r.placement) || 0;
+        acc.penalty += Number(r.penalty) || 0;
+        map.set(key, acc);
+      });
+    });
+    return sortRows([...map.values()]);
+  };
+
+  return { sb, must, fetchFromSupabase, ICONS, esc, safeUrl, safeImg, loadData, total, sortRows, hasTeam, generalRows, PHASES, STATES, localTimes };
 })();

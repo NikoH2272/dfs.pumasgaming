@@ -9,14 +9,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
+  <link rel="icon" href="assets/favicon.png">
 </head>
 <body>
   <header class="topbar">
     <div class="container">
-      <a class="brand" href="index.html"><span id="logo"></span><span>DFS <b>ADMIN</b></span></a>
+      <a class="brand" href="index.html"><img src="assets/logo.webp" alt="" width="30" height="37"><span>DFS <b>ADMIN</b></span></a>
       <div class="toolbar">
         <span id="who" style="color:var(--muted);font-size:14px"></span>
         <a class="btn ghost sm" href="index.html" target="_blank">Ver web</a>
+        <button class="btn ghost sm" id="change-pw" hidden>Cambiar clave</button>
         <button class="btn ghost sm" id="logout" hidden>Salir</button>
       </div>
     </div>
@@ -25,16 +27,13 @@
   <!-- Login -->
   <div class="container" id="login-view">
     <form class="panel corner login" id="login-form">
-      <h1 id="login-title">Panel admin</h1>
-      <p class="hint" id="login-hint" style="color:var(--muted)">Inicia sesión con tu cuenta del staff.</p>
-      <div class="field" id="name-field" hidden><label for="dn">Nombre</label><input id="dn" autocomplete="nickname"></div>
-      <div class="field"><label for="em">Correo</label><input id="em" type="email" autocomplete="email" required></div>
-      <div class="field"><label for="pw">Contraseña</label><input id="pw" type="password" autocomplete="current-password" minlength="6" required></div>
-      <div class="toolbar">
-        <button class="btn" type="submit" id="login-btn">Entrar</button>
-        <button class="btn ghost" type="button" id="mode-toggle">Crear cuenta</button>
-      </div>
+      <h1>Panel admin</h1>
+      <p class="hint" style="color:var(--muted)">Entra con tu usuario y clave del staff.</p>
+      <div class="field"><label for="un">Usuario</label><input id="un" autocomplete="username" autocapitalize="none" spellcheck="false" required></div>
+      <div class="field"><label for="pw">Clave</label><input id="pw" type="password" autocomplete="current-password" required></div>
+      <button class="btn" type="submit" id="login-btn">Entrar</button>
       <p class="hint" id="pending-msg" hidden style="margin-top:16px;color:var(--teal)"></p>
+      <p class="hint" style="margin:16px 0 0;color:var(--muted);font-size:14px">¿Olvidaste la clave? Pídele a un admin que la restablezca en <b>Usuarios</b>.</p>
     </form>
   </div>
 
@@ -42,18 +41,21 @@
   <div class="container admin-wrap" id="admin-view" hidden>
     <div class="admin-layout">
       <nav class="panel admin-menu" id="menu">
-        <button data-p="general" class="active">General</button>
+        <button data-p="general" class="active">Estado y general</button>
         <button data-p="links">Instagram y grupo</button>
         <button data-p="prizes">Premios</button>
-        <button data-p="schedule">Calendario</button>
+        <button data-p="schedule">Cronograma</button>
         <button data-p="results">Resultados</button>
         <button data-p="sponsors">Sponsors</button>
         <button data-p="users" id="menu-users" hidden>Usuarios</button>
       </nav>
       <div>
         <section class="panel corner admin-pane active" id="p-general">
+          <h2>Estado del torneo</h2><p class="hint">Se muestra como etiqueta en la portada. Con "Inscripciones abiertas" aparece el botón de inscripción.</p>
+          <div class="state-picker" id="state-picker"></div>
           <h2>General</h2><p class="hint">Datos principales del torneo.</p>
           <div class="grid-2" id="general-fields"></div>
+          <div class="field"><label>Aviso del cronograma</label><textarea data-bind="tournament.notice" rows="2"></textarea></div>
           <div class="field"><label>Descripción</label><textarea data-bind="tournament.intro" rows="5"></textarea></div>
           <div class="field">
             <label>Imagen principal (póster)</label>
@@ -78,27 +80,43 @@
         </section>
 
         <section class="panel corner admin-pane" id="p-schedule">
-          <h2>Calendario</h2><p class="hint">Se ordena automáticamente por fecha en la web.</p>
+          <h2>Cronograma</h2><p class="hint">Hora en <b>México</b> (24 h); la web muestra también Colombia, Rep. Dominicana y Argentina. Solo las fechas <b>activas</b> se ven en la web.</p>
           <div id="sched-list"></div>
-          <button class="btn ghost sm" id="add-match">+ Agregar fecha</button>
         </section>
 
         <section class="panel corner admin-pane" id="p-results">
-          <h2>Resultados</h2><p class="hint">Una tabla por grupo o fase. Total = Kills + Pts. posición. Se ordena sola en la web.</p>
+          <h2>Resultados</h2><p class="hint"><b>Total = Kills + P.P − Sanciones.</b> En la web se ordena sola y solo aparecen los equipos con nombre. "Clasifican" marca cuántos pasan a la siguiente fase.</p>
+          <div class="phase-filter" id="phase-filter"></div>
+          <details class="row-card" id="bulk">
+            <summary style="cursor:pointer;color:var(--teal);font-weight:700;letter-spacing:1px;text-transform:uppercase">Carga masiva de equipos (plantilla)</summary>
+            <p class="hint" style="margin:10px 0">Pega varios grupos de la fase seleccionada. Cada bloque empieza con el nombre del grupo y debajo la lista numerada. Solo se cambian los nombres; los puntos ya cargados se mantienen.</p>
+            <textarea id="bulk-text" rows="10" placeholder="GRUPO A&#10;1. OLIS&#10;2. B17 E-SPORT&#10;3. SIX NOVA&#10;...&#10;&#10;GRUPO B&#10;1. ZINNER&#10;2. XPECTER BLUE&#10;..."></textarea>
+            <button class="btn sm" type="button" id="bulk-load" style="margin-top:8px">Cargar equipos</button>
+          </details>
           <div class="toolbar" style="margin-bottom:16px">
-            <button class="btn ghost sm" id="add-table">+ Nueva tabla</button>
-            <button class="btn ghost sm" id="make-groups">Crear grupos A–O</button>
+            <button class="btn ghost sm" id="add-table">+ Nuevo grupo</button>
+            <button class="btn ghost sm" id="add-general">+ Tabla general de la fase</button>
           </div>
           <div id="results-list"></div>
         </section>
 
         <section class="panel corner admin-pane" id="p-sponsors">
-          <h2>Sponsors</h2><p class="hint">18 espacios. En PC se muestran en grupos de 6 que rotan; en móvil, en cuadrícula. Logos PNG/WebP con fondo transparente se ven mejor. Los espacios sin nombre ni logo no se muestran.</p>
+          <h2>Sponsors</h2><p class="hint">18 espacios. En PC giran en carrusel continuo (≈6 a la vez, se pausa al pasar el mouse); en móvil se ven en cuadrícula. Pon la ruta del archivo (ej. <code>assets/sponsors/olis.png</code>) o súbelo aquí. Logos PNG/WebP con fondo transparente se ven mejor. Los espacios sin nombre ni logo no se muestran.</p>
           <div class="sp-admin" id="sp-list"></div>
         </section>
 
         <section class="panel corner admin-pane" id="p-users">
-          <h2>Usuarios</h2><p class="hint">Las cuentas nuevas quedan "pendiente" hasta que les asignes un rol. <b>Editor</b>: edita contenido. <b>Admin</b>: además gestiona usuarios.</p>
+          <h2>Usuarios</h2><p class="hint"><b>Editor</b>: edita contenido y resultados. <b>Admin</b>: además gestiona usuarios.</p>
+          <form class="row-card" id="new-user">
+            <div class="row-head"><b>Nuevo usuario</b></div>
+            <div class="inline-grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));align-items:end">
+              <div class="field"><label>Usuario</label><input name="username" required pattern="[a-zA-Z0-9_.\-]{3,30}" autocapitalize="none" placeholder="ej: nico_dfs"></div>
+              <div class="field"><label>Nombre</label><input name="display_name" placeholder="Nicolás"></div>
+              <div class="field"><label>Clave</label><input name="password" type="text" minlength="6" required autocomplete="off"></div>
+              <div class="field"><label>Rol</label><select name="role"><option value="editor">Editor</option><option value="admin">Admin</option></select></div>
+            </div>
+            <button class="btn sm" type="submit">Crear usuario</button>
+          </form>
           <div class="table-wrap"><table class="edit-table" id="users-table"></table></div>
         </section>
       </div>
